@@ -1,6 +1,7 @@
 Other Available Languages:
  
- # VHDL-Solar-Tracking-System
+ ### VHDL-Solar-Tracking-System
 
-#🌻 Overview
+ ##🌻 Overview
+
 

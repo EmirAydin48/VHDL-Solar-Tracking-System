@@ -1,6 +1,9 @@
 Other Available Languages: TR
  
 # VHDL-Solar-Tracking-System
+
+![demo](https://github.com/user-attachments/assets/1536b20f-7956-42f9-8431-87e7970cd9c4)
+
 ![Status](https://img.shields.io/badge/Status-Completed-success) ![Tech](https://img.shields.io/badge/Language-VHDL-blue) ![Board](https://img.shields.io/badge/Hardware-Basys3-orange)
  ## 🌻 Overview
  This project is a dual-axis solar tracking system implemented on the Artix-7 FPGA (Basys 3). It mimics the heliotropic behavior of a sunflower by using light dependent resistors mounted on the left and right sides of a servo motor to actively orient the servo motor towards the brightest light source. Unlike standard microcontroller implementations, this project handles analog signal processing and motor control entirely through digital hardware logic without a soft-core processor.
@@ -32,6 +35,7 @@ Other Available Languages: TR
    * Instead of using a pre-made Xilinx IP, our group wrote a custom Finite State Machine (FSM) to handle the HD44780 LCD protocol.
    * Initialization: The FSM automatically cycles through the required 4-bit startup sequence.
    * ASCII Handling: A custom lookup table converts integer sensor values into ASCII characters for display.
+
 
 
 

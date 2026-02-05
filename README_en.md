@@ -25,10 +25,11 @@ Other Available Languages:
    Displays real-time status (e.g., "TURN LEFT", "IDLE") on the visual interface.
  ## 💻 Technical Implementation
   # 1. Signal Smoothing & Motor Control
-  # * To mitigate sensor noise, our group implemented a digital low-pass filter (moving average) in pwm_gen.vhd.
-  # * Smoothing: Sensor values are accumulated and averaged to filter out high-frequency noise. 
-  # * Ramping: A ramp_timer is used to gradually adjust the servo duty cycle. This ensures smooth, organic movement during travel, though some mechanical hunting may still occur at the precise threshold boundary.
+   * To mitigate sensor noise, our group implemented a digital low-pass filter (moving average) in pwm_gen.vhd.
+   * Smoothing: Sensor values are accumulated and averaged to filter out high-frequency noise. 
+   * Ramping: A ramp_timer is used to gradually adjust the servo duty cycle. This ensures smooth, organic movement during travel, though some mechanical hunting may still occur at the precise threshold boundary.
   # 2. Bare-Metal LCD State Machine
-  # * Instead of using a pre-made Xilinx IP, our group wrote a custom Finite State Machine (FSM) to handle the HD44780 LCD protocol.
-  # * Initialization: The FSM automatically cycles through the required 4-bit startup sequence.
-  # * ASCII Handling: A custom lookup table converts integer sensor values into ASCII characters for display.
+   * Instead of using a pre-made Xilinx IP, our group wrote a custom Finite State Machine (FSM) to handle the HD44780 LCD protocol.
+   * Initialization: The FSM automatically cycles through the required 4-bit startup sequence.
+   * ASCII Handling: A custom lookup table converts integer sensor values into ASCII characters for display.
+

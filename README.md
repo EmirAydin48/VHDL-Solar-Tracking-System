@@ -1,4 +1,4 @@
-Other Available Languages: TR
+Available Languages: [English](README.md) | [Türkçe](README_TR.md)
  
 # VHDL-Solar-Tracking-System
 

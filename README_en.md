@@ -1,4 +1,4 @@
-Other Available Languages:
+Other Available Languages: TR
  
 # VHDL-Solar-Tracking-System
 ![Status](https://img.shields.io/badge/Status-Completed-success) ![Tech](https://img.shields.io/badge/Language-VHDL-blue) ![Board](https://img.shields.io/badge/Hardware-Basys3-orange)
@@ -32,6 +32,7 @@ Other Available Languages:
    * Instead of using a pre-made Xilinx IP, our group wrote a custom Finite State Machine (FSM) to handle the HD44780 LCD protocol.
    * Initialization: The FSM automatically cycles through the required 4-bit startup sequence.
    * ASCII Handling: A custom lookup table converts integer sensor values into ASCII characters for display.
+
 
 
 

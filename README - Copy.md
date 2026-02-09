@@ -1,39 +1,40 @@
+Mevcut Diller: [English](README.md) | [Türkçe](README_TR.md)
+
 # 🌻 SunflowerBot: FPGA Tabanlı Otonom Güneş Takip Sistemi
 
 ![demo](https://github.com/user-attachments/assets/1536b20f-7956-42f9-8431-87e7970cd9c4)  
 *Şekil 1. SunflowerBot sisteminin gerçek zamanlı çalışma gösterimi*
 
 ![Durum](https://img.shields.io/badge/Durum-Tamamlandı-success)
-![Dil](https://img.shields.io/badge/Dil-VHDL-blue)
+![Yazılım Dili](https://img.shields.io/badge/Dil-VHDL-blue)
 ![Donanım](https://img.shields.io/badge/Donanım-Basys3-orange)
-![Lisans](https://img.shields.io/badge/Lisans-MIT-green)
 
 ---
 
 ## 📌 Genel Bakış
 
-**SunflowerBot**, Basys 3 geliştirme kartı üzerinde yer alan **Artix-7 FPGA** kullanılarak tasarlanmış, otonom ve heliotropik (güneşe yönelen) bir güneş takip sistemidir. Sistem, iki adet **Işığa Bağımlı Direnç (LDR)** aracılığıyla ortam ışığını algılayarak bir servo motoru en yüksek ışık yoğunluğuna doğru **gerçek zamanlı** olarak yönlendirir.
+SunflowerBot, Basys 3 geliştirme kartı üzerinde yer alan Artix-7 FPGA kullanılarak tasarlanmış, otonom ve heliotropik (güneşe yönelen) bir güneş takip sistemidir. Sistem, iki adet Işığa Bağımlı Direnç (LDR) aracılığıyla ortam ışığını algılayarak bir servo motoru en yüksek ışık yoğunluğuna doğru gerçek zamanlı olarak yönlendirir.
 
-Mikrodenetleyici tabanlı çözümlerde görülen sıralı yazılım yürütmenin aksine, bu proje sensör okuma, sinyal işleme ve motor kontrol işlemlerini **tamamen donanım seviyesinde ve eşzamanlı** olarak gerçekleştirmek üzere FPGA paralelliğinden yararlanmaktadır. Sistem, herhangi bir soft-core işlemciye ihtiyaç duymayan özel bir **RTL (Register Transfer Level)** mimarisi ile tasarlanmış olup, bu sayede **deterministik ve mikrosaniye mertebesinde tepki süreleri** elde edilmiştir.
+Mikrodenetleyici tabanlı çözümlerde görülen sıralı yazılım yürütmenin aksine, bu proje sensör okuma, sinyal işleme ve motor kontrol işlemlerini tamamen donanım seviyesinde ve eşzamanlı olarak gerçekleştirmek üzere FPGA paralelliğinden yararlanmaktadır. Sistem, herhangi bir soft-core işlemciye ihtiyaç duymayan özel bir RTL (Register Transfer Level) mimarisi ile tasarlanmış olup, bu sayede deterministik ve mikrosaniye mertebesinde tepki süreleri elde edilmiştir.
 
 ---
 
 ## 🛠️ Temel Tasarım Özellikleri
 
 * **⚡ Donanım Hızlandırmalı Kontrol Döngüsü**  
-  Sensör gürültüsünü bastırmak ve servo motorun gereksiz salınım yapmasını önlemek amacıyla **300 birimlik ölü banta** sahip bir **histerezis karşılaştırıcı** uygulanmıştır.
+  Sensör gürültüsünü bastırmak ve servo motorun gereksiz salınım yapmasını önlemek amacıyla 300 birimlik ölü banta sahip bir histerezis karşılaştırıcı uygulanmıştır.
 
-* **📈 Sinyal İşleme Hattı (DSP)**  
-  Ham **12-bit XADC verilerini** yumuşatmak için özel olarak tasarlanmış **Birinci Dereceden IIR (Sonsuz Dürtü Tepkili) Alçak Geçiren Filtre** kullanılmaktadır.
+* 📈 Sinyal İşleme Hattı (DSP)  
+  Ham 12-bit XADC verilerini yumuşatmak için özel olarak tasarlanmış Birinci Dereceden IIR (Sonsuz Dürtü Tepkili) Alçak Geçiren Filtre kullanılmaktadır.
 
 * **🖥️ Bare-Metal LCD Sürücüsü**  
-  Harici IP çekirdekleri kullanılmadan, **HD44780 LCD protokolü** mikrosaniye hassasiyetinde zamanlama gereksinimlerini sağlayan bir **Sonlu Durum Makinesi (FSM)** ile doğrudan donanımda uygulanmıştır.
+  Harici IP çekirdekleri kullanılmadan, HD44780 LCD protokolü mikrosaniye hassasiyetinde zamanlama gereksinimlerini sağlayan bir Sonlu Durum Makinesi (FSM) ile doğrudan donanımda uygulanmıştır.
 
 * **🎯 Hassas Eyleme Geçirme**  
-  Servo motorun mekanik bileşenlerini korumak amacıyla **Slew-Rate (değişim hızı) sınırlamalı**, **50 Hz PWM üreteci** geliştirilmiştir.
+  Servo motorun mekanik bileşenlerini korumak amacıyla Slew-Rate (değişim hızı) sınırlamalı, 50 Hz PWM üreteci geliştirilmiştir.
 
 * **🔌 XADC Arayüzü**  
-  Artix-7 FPGA’nın dahili **12-bit XADC modülü**, **Dinamik Yeniden Yapılandırma Portu (DRP)** üzerinden manuel olarak kontrol edilmiştir.
+  Artix-7 FPGA’nın dahili 12-bit XADC modülü, Dinamik Yeniden Yapılandırma Portu (DRP) üzerinden manuel olarak kontrol edilmiştir.
 
 ---
 
@@ -42,12 +43,12 @@ Mikrodenetleyici tabanlı çözümlerde görülen sıralı yazılım yürütmeni
 ![Sistem_Blok_Diyagramı](https://github.com/user-attachments/assets/2a5c269f-cfff-4a3c-bdd9-182989aae2f3)  
 *Şekil 2. SunflowerBot sistem mimarisi*
 
-Sistem, tamamen paralel çalışan bir **“Algıla – Karar Ver – Eyleme Geç”** yapısı üzerine kurulmuştur.
+Sistem, tamamen paralel çalışan bir “Algıla – Karar Ver – Eyleme Geç” yapısı üzerine kurulmuştur.
 
 ### 1. Algılama (`xadc_interface.vhd`)
 * **Giriş:** Gerilim bölücü yapılandırmasında iki adet LDR sensörü  
-* **Örnekleme:** XADC primitive’i kullanılarak **12-bit çözünürlükte** analog-dijital dönüşüm  
-* **Kontrol:** Tek ADC çekirdeğini iki analog kanal (VAUX6 & VAUX14) arasında paylaştıran **4 durumlu FSM tabanlı sıralayıcı**
+* **Örnekleme:** XADC primitive’i kullanılarak 12-bit çözünürlükte analog-dijital dönüşüm  
+* **Kontrol:** Tek ADC çekirdeğini iki analog kanal (VAUX6 & VAUX14) arasında paylaştıran 4 durumlu FSM tabanlı sıralayıcı
 
 ### 2. İşleme (`sensor_compare.vhd`, `pwm_gen.vhd`)
 * **Karşılaştırma:** Sol ve sağ sensörler arasındaki farkın ($\Delta$) hesaplanması  
@@ -69,7 +70,7 @@ Sistem, tamamen paralel çalışan bir **“Algıla – Karar Ver – Eyleme Ge�
 
 ### 4. Geri Bildirim (`lcd_controller.vhd`)
 * **Görüntüleme:** Sistem durumu (“SOLA DÖN”, “KİLİTLENDİ”) ve sensör değerleri  
-* **Dönüştürme:** Gerçek zamanlı **İkili → BCD → ASCII** dönüşüm mantığı
+* **Dönüştürme:** Gerçek zamanlı İkili → BCD → ASCII dönüşüm mantığı
 
 ---
 
@@ -77,20 +78,20 @@ Sistem, tamamen paralel çalışan bir **“Algıla – Karar Ver – Eyleme Ge�
 
 ### 1. Dijital Sinyal İşleme (DSP)
 
-LDR tabanlı analog ölçümlerde karşılaşılan elektriksel gürültüyü harici filtre elemanları kullanmadan bastırmak amacıyla FPGA içinde **Birinci Dereceden IIR filtre** uygulanmıştır:
+LDR tabanlı analog ölçümlerde karşılaşılan elektriksel gürültüyü harici filtre elemanları kullanmadan bastırmak amacıyla FPGA içinde Birinci Dereceden IIR filtre uygulanmıştır:
 
 \[
 y[n] = \frac{31 \cdot y[n-1] + x[n]}{32}
 \]
 
-* **Donanım Optimizasyonu:** Bölme işlemi, DSP dilimi tüketmeden **bit kaydırma (`>>5`)** ile gerçekleştirilmiştir.  
+* **Donanım Optimizasyonu:** Bölme işlemi, DSP dilimi tüketmeden bit kaydırma (`>>5`) ile gerçekleştirilmiştir.  
 * **Titreşim Önleme:** Programlanabilir histerezis eşiği, küçük ışık farklarında servo motorun kararsız davranmasını engeller.
 
 ### 2. Servo Kontrolü ve Slew-Rate Sınırlama
 
-Ani konum değişimlerinin neden olduğu mekanik stresleri azaltmak için özel bir **Soft-Start (Yumuşak Başlangıç) rampa denetleyicisi** geliştirilmiştir.
+Ani konum değişimlerinin neden olduğu mekanik stresleri azaltmak için özel bir Soft-Start (Yumuşak Başlangıç) rampa denetleyicisi geliştirilmiştir.
 
-* `current_pos`, `target_pos` değerine doğru her **15 µs**’de yalnızca bir adım ilerler.  
+* `current_pos`, `target_pos` değerine doğru her 15 µs'de yalnızca bir adım ilerler.  
 * Bu yapı, pürüzsüz ve mekanik açıdan güvenli bir hareket profili sağlar.
 
 ### 3. Özel LCD Sürücüsü (HD44780)
@@ -104,7 +105,7 @@ Ani konum değişimlerinin neden olduğu mekanik stresleri azaltmak için özel 
 
 ### 4. XADC Arayüzleme
 
-XADC’nin otomatik sıralayıcısı bypass edilerek, DRP üzerinden **tamamen deterministik** bir manuel sıralama yapılmıştır.
+XADC’nin otomatik sıralayıcısı bypass edilerek, DRP üzerinden tamamen deterministik bir manuel sıralama yapılmıştır.
 
 * **Kanal Adresleri:** `0x16` (VAUX6), `0x1E` (VAUX14)  
 * **Kontrol:** `EOC` sinyali ile dönüşüm senkronizasyonu  

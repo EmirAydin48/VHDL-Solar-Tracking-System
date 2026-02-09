@@ -20,7 +20,7 @@ Unlike microcontroller-based solutions that rely on sequential software executio
 
 ---
 
-## 🛠️ Key Engineering Features
+## 🛠️ Key Design Features
 
 * **⚡ Hardware-Accelerated Control Loop** 
     * Implements a Hysteresis Comparator with a 300-unit deadband to eliminate sensor noise and prevent servo "chattering" (rapid oscillation).

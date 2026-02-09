@@ -17,6 +17,7 @@ Available Languages: [English](README.md) | [Türkçe](README_TR.md)
   * ### XADC Integration
     Direct interface with the Artix-7 on-chip Analog-to-Digital Converter.
  ## ⚙️ System Architecture
+ ![System_Block_Diagram](https://github.com/user-attachments/assets/2a5c269f-cfff-4a3c-bdd9-182989aae2f3)
   The system operates as a continuous data pipeline:
    ### 1. Sensing (xadc_interface.vhd) 
    Reads analog voltage from two Light Dependent Resistors (LDRs) using the FPGA's internal XADC primitive.
@@ -27,6 +28,7 @@ Available Languages: [English](README.md) | [Türkçe](README_TR.md)
    ### 4. Feedback (lcd_controller.vhd) 
    Displays real-time status (e.g., "TURN LEFT", "IDLE") on the visual interface.
  ## 💻 Technical Implementation
+ ![State_Transition_Table](https://github.com/user-attachments/assets/f2113290-5615-4d34-af94-b5d291377a13)
   ### 1. Signal Smoothing & Motor Control
    * To mitigate sensor noise, our group implemented a digital low-pass filter (moving average) in pwm_gen.vhd.
    * Smoothing: Sensor values are accumulated and averaged to filter out high-frequency noise. 
@@ -35,7 +37,7 @@ Available Languages: [English](README.md) | [Türkçe](README_TR.md)
    * Instead of using a pre-made Xilinx IP, our group wrote a custom Finite State Machine (FSM) to handle the HD44780 LCD protocol.
    * Initialization: The FSM automatically cycles through the required 4-bit startup sequence.
    * ASCII Handling: A custom lookup table converts integer sensor values into ASCII characters for display.
-
+[▶️ Watch Full 20-Minute Engineering Breakdown](https://youtu.be/HuF9bkv2JE8)
 
 
 

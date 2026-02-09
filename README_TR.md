@@ -96,6 +96,8 @@ The project bypasses the XADC's automatic sequencer to implement a deterministic
 * **Channel Multiplexing:** The FSM explicitly switches addresses between `0x16` (Aux6) and `0x1E` (Aux14), waiting for the `EOC` (End of Conversion) signal before latching data.
 * **Resolution:** Captures full 12-bit precision (0-4095 range) mapped to the 0V-1V analog input range of the Artix-7.
 
+---
+
 ## 🔌 Hardware Pinout (Basys 3)
 
 | Component | Signal Name | FPGA Pin | Description |
@@ -108,11 +110,10 @@ The project bypasses the XADC's automatic sequencer to implement a deterministic
 | **LCD** | `lcd_en` | B15 | Enable Signal |
 | **LCD** | `lcd_data[0-7]` | K17...R18 | 8-bit Data Bus |
 
+---
+
 ## 🎥 Demonstration
 
 [▶️ Watch Full Engineering Breakdown on YouTube](https://youtu.be/HuF9bkv2JE8)
 
 ---
-
-
-

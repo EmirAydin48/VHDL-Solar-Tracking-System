@@ -37,6 +37,7 @@ Available Languages: [English](README.md) | [Türkçe](README_TR.md)
    * Instead of using a pre-made Xilinx IP, our group wrote a custom Finite State Machine (FSM) to handle the HD44780 LCD protocol.
    * Initialization: The FSM automatically cycles through the required 4-bit startup sequence.
    * ASCII Handling: A custom lookup table converts integer sensor values into ASCII characters for display.
+
 [▶️ Watch Full 20-Minute Engineering Breakdown](https://youtu.be/HuF9bkv2JE8)
 
 

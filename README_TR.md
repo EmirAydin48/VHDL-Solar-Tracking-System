@@ -1,29 +1,39 @@
-# SunflowerBot: FPGA-Based Autonomous Solar Tracking System
+Available Languages: [English](README.md) | [Türkçe](README_TR.md)
+
+# 🌻 SunflowerBot: FPGA Tabanlı Otonom Güneş Takip Sistemi
 
 ![demo](https://github.com/user-attachments/assets/1536b20f-7956-42f9-8431-87e7970cd9c4)
 
 *Figure 1. The Demonstration of The Project Working*
 
-![Status](https://img.shields.io/badge/Status-Completed-success) ![Tech](https://img.shields.io/badge/Language-VHDL-blue) ![Board](https://img.shields.io/badge/Hardware-Basys3-orange) ![License](https://img.shields.io/badge/License-MIT-green)
+![Status](https://img.shields.io/badge/Status-Completed-success)
+![Tech](https://img.shields.io/badge/Language-VHDL-blue) 
+![Board](https://img.shields.io/badge/Hardware-Basys3-orange) 
 
-## 🌻 Overview
+---
+
+## 📌 Overview
 
 SunflowerBot is an autonomous, heliotropic tracking system designed on the Artix-7 FPGA (Basys 3). It mimics nature by using a pair of Light Dependent Resistors (LDRs) to actively orient a servo motor toward the brightest light source in real-time.
 
 Unlike microcontroller-based solutions that rely on sequential software execution, this project leverages FPGA parallelism to handle sensor acquisition, signal processing, and motor control simultaneously in hardware. The system features a custom RTL (Register Transfer Level) design that eliminates the need for a soft-core processor, ensuring deterministic, microsecond-level response times.
 
- 🛠️ Key Engineering Features
+---
 
-* ⚡ Hardware-Accelerated Control Loop
+## 🛠️ Key Engineering Features
+
+* **⚡ Hardware-Accelerated Control Loop** 
     * Implements a Hysteresis Comparator with a 300-unit deadband to eliminate sensor noise and prevent servo "chattering" (rapid oscillation).
-* Signal Processing Pipeline (DSP)
+* **📈 Signal Processing Pipeline (DSP)**
     * Features a custom Infinite Impulse Response Low-Pass Filter to smooth raw 12-bit sensor data before actuation.
-*  Bare-Metal LCD Driver
+* **🖥️ Bare-Metal LCD Driver** 
     * A manual Finite State Machine implementation of the HD44780 protocol, managing microsecond-level timing constraints without external IP cores.
-*  Precise Actuation
+* **🎯 Precise Actuation**
     * 50Hz PWM Generator with Slew-Rate Limiting to protect mechanical components from high-torque stress by gradually accelerating the servo.
-*  XADC Interface
+* **🔌 XADC Interface**
     * Direct control of the Artix-7 Dynamic Reconfiguration Port (DRP) to sequence the internal 12-bit Analog-to-Digital Converter.
+
+---
 
 ## ⚙️ System Architecture
 
@@ -51,10 +61,12 @@ The architecture is a fully parallelized "Sense-Think-Act" pipeline:
 * **Visuals:** Displays real-time status ("TURN LEFT", "LOCKED") and raw 12-bit sensor values.
 * **Conversion:** Includes a binary-to-BCD-to-ASCII converter for human-readable output.
 
+---
+
 ### 💻 Technical Implementation Details
 
-
 #### 1. Digital Signal Processing (DSP) Implementation
+
 To filter electrical noise from the LDR voltage dividers without using external capacitors, our group have designed a First-Order IIR (Infinite Impulse Response) Filter directly in the FPGA fabric (`pwm_gen.vhd`).
 
 * **The Algorithm:** An **Exponential Moving Average (EMA)** logic that acts as a digital low-pass filter.
@@ -101,5 +113,6 @@ The project bypasses the XADC's automatic sequencer to implement a deterministic
 [▶️ Watch Full Engineering Breakdown on YouTube](https://youtu.be/HuF9bkv2JE8)
 
 ---
+
 
 

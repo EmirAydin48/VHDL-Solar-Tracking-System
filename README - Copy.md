@@ -53,14 +53,10 @@ Sistem, tamamen paralel çalışan bir “Algıla – Karar Ver – Eyleme Geç�
 ### 2. İşleme (`sensor_compare.vhd`, `pwm_gen.vhd`)
 * **Karşılaştırma:** Sol ve sağ sensörler arasındaki farkın ($\Delta$) hesaplanması  
 * **Filtreleme:**  
-  \[
-  y[n] = 0.97 \cdot y[n-1] + 0.03 \cdot x[n]
-  \]  
+   $y[n] = 0.97 \cdot y[n-1] + 0.03 \cdot x[n]$
   denklemi ile yüksek frekanslı gürültünün bastırılması  
 * **Karar Mekanizması:** Servo motor yalnızca  
-  \[
-  |\Delta| > \text{Eşik Değeri}
-  \]  
+   $|\Delta| > \text{Threshold}$
   koşulu sağlandığında hareket ettirilir.
 
 ### 3. Eyleme Geçirme (`pwm_gen.vhd`)
@@ -80,9 +76,7 @@ Sistem, tamamen paralel çalışan bir “Algıla – Karar Ver – Eyleme Geç�
 
 LDR tabanlı analog ölçümlerde karşılaşılan elektriksel gürültüyü harici filtre elemanları kullanmadan bastırmak amacıyla FPGA içinde Birinci Dereceden IIR filtre uygulanmıştır:
 
-\[
-y[n] = \frac{31 \cdot y[n-1] + x[n]}{32}
-\]
+$$y[n] = \frac{31 \cdot y[n-1] + x[n]}{32}$$
 
 * **Donanım Optimizasyonu:** Bölme işlemi, DSP dilimi tüketmeden bit kaydırma (`>>5`) ile gerçekleştirilmiştir.  
 * **Titreşim Önleme:** Programlanabilir histerezis eşiği, küçük ışık farklarında servo motorun kararsız davranmasını engeller.
@@ -130,3 +124,5 @@ XADC’nin otomatik sıralayıcısı bypass edilerek, DRP üzerinden tamamen det
 ## 🎥 Gösterim
 
 [▶️ Tam Mühendislik Analizini YouTube’da İzleyin](https://youtu.be/HuF9bkv2JE8)
+
+---

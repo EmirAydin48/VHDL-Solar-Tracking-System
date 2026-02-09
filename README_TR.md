@@ -6,22 +6,22 @@
 
 ## 🌻 Overview
 
-**SunflowerBot** is an autonomous, heliotropic tracking system designed on the **Artix-7 FPGA** (Basys 3). It mimics nature by using a pair of Light Dependent Resistors (LDRs) to actively orient a servo motor toward the brightest light source in real-time.
+SunflowerBot is an autonomous, heliotropic tracking system designed on the Artix-7 FPGA (Basys 3). It mimics nature by using a pair of Light Dependent Resistors (LDRs) to actively orient a servo motor toward the brightest light source in real-time.
 
-Unlike microcontroller-based solutions that rely on sequential software execution, this project leverages **FPGA parallelism** to handle sensor acquisition, signal processing, and motor control simultaneously in hardware. The system features a custom **RTL (Register Transfer Level)** design that eliminates the need for a soft-core processor, ensuring deterministic, microsecond-level response times.
+Unlike microcontroller-based solutions that rely on sequential software execution, this project leverages FPGA parallelism to handle sensor acquisition, signal processing, and motor control simultaneously in hardware. The system features a custom RTL (Register Transfer Level) design that eliminates the need for a soft-core processor, ensuring deterministic, microsecond-level response times.
 
-## 🛠️ Key Engineering Features
+ 🛠️ Key Engineering Features
 
-* **⚡ Hardware-Accelerated Control Loop**
-    * Implements a **Hysteresis Comparator** with a 300-unit deadband to eliminate sensor noise and prevent servo "chattering" (rapid oscillation).
-* **Signal Processing Pipeline (DSP)**
-    * Features a custom **Infinite Impulse Response (IIR) Low-Pass Filter** (Exponential Moving Average) to smooth raw 12-bit sensor data before actuation.
-* ** Bare-Metal LCD Driver**
-    * A manual **Finite State Machine (FSM)** implementation of the HD44780 protocol, managing microsecond-level timing constraints without external IP cores.
-* ** Precise Actuation**
-    * **50Hz PWM Generator** with **Slew-Rate Limiting** (Ramp Logic) to protect mechanical components from high-torque stress by gradually accelerating the servo.
-* ** XADC Interface**
-    * Direct control of the Artix-7 **Dynamic Reconfiguration Port (DRP)** to sequence the internal 12-bit Analog-to-Digital Converter.
+* ⚡ Hardware-Accelerated Control Loop
+    * Implements a Hysteresis Comparator with a 300-unit deadband to eliminate sensor noise and prevent servo "chattering" (rapid oscillation).
+* Signal Processing Pipeline (DSP)
+    * Features a custom Infinite Impulse Response Low-Pass Filter to smooth raw 12-bit sensor data before actuation.
+*  Bare-Metal LCD Driver
+    * A manual Finite State Machine implementation of the HD44780 protocol, managing microsecond-level timing constraints without external IP cores.
+*  Precise Actuation
+    * 50Hz PWM Generator with Slew-Rate Limiting to protect mechanical components from high-torque stress by gradually accelerating the servo.
+*  XADC Interface
+    * Direct control of the Artix-7 Dynamic Reconfiguration Port (DRP) to sequence the internal 12-bit Analog-to-Digital Converter.
 
 ## ⚙️ System Architecture
 
@@ -65,8 +65,3 @@ The architecture is a fully parallelized "Sense-Think-Act" pipeline:
 [▶️ Watch Full Engineering Breakdown on YouTube](https://youtu.be/HuF9bkv2JE8)
 
 ---
-
-### 🚀 Future Improvements
-* **Dual-Axis Support:** Adding a second servo for Altitude (Up/Down) tracking.
-* **PID Control:** Upgrading the simple Proportional logic to a full PID controller for faster settling times.
-* **UART Debugging:** Streaming sensor data to a PC for MATLAB analysis.

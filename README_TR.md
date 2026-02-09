@@ -1,6 +1,7 @@
 # SunflowerBot: FPGA-Based Autonomous Solar Tracking System
 
 ![demo](https://github.com/user-attachments/assets/1536b20f-7956-42f9-8431-87e7970cd9c4)
+
 *Figure 1. The Demonstration of The Project Working*
 
 ![Status](https://img.shields.io/badge/Status-Completed-success) ![Tech](https://img.shields.io/badge/Language-VHDL-blue) ![Board](https://img.shields.io/badge/Hardware-Basys3-orange) ![License](https://img.shields.io/badge/License-MIT-green)
@@ -100,4 +101,5 @@ The project bypasses the XADC's automatic sequencer to implement a deterministic
 [▶️ Watch Full Engineering Breakdown on YouTube](https://youtu.be/HuF9bkv2JE8)
 
 ---
+
 

@@ -98,7 +98,7 @@ The project bypasses the XADC's automatic sequencer to implement a deterministic
 
 ---
 
-## 🔌 Hardware Pinout (Basys 3)
+## Hardware Pinout (Basys 3)
 
 | Component | Signal Name | FPGA Pin | Description |
 | :--- | :--- | :--- | :--- |

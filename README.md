@@ -35,7 +35,7 @@ Unlike microcontroller-based solutions that rely on sequential software executio
 
 ---
 
-## ⚙️ System Architecture
+## System Architecture
 
 ![System_Block_Diagram](https://github.com/user-attachments/assets/2a5c269f-cfff-4a3c-bdd9-182989aae2f3)
 *Figure 2. The Block Diagram Of SunflowerBot*

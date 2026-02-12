@@ -1,4 +1,4 @@
-Mevcut Diller: [English](README.md) | [Türkçe](README_TR.md)
+**Mevcut Diller:** [English](README.md) | [Türkçe](README_TR.md)
 
 # 🌻 SunflowerBot: FPGA Tabanlı Otonom Güneş Takip Sistemi
 
@@ -126,4 +126,5 @@ XADC’nin otomatik sıralayıcısı bypass edilerek, DRP üzerinden tamamen det
 [▶️ Tam Mühendislik Analizini YouTube’da İzleyin](https://youtu.be/HuF9bkv2JE8)
 
 ---
+
 

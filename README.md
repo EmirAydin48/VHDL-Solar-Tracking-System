@@ -1,4 +1,4 @@
-Available Languages: [English](README.md) | [Türkçe](README_TR.md)
+**Available Languages:** [English](README.md) | [Türkçe](README_TR.md)
 
 # 🌻 SunflowerBot: FPGA-Based Autonomous Solar Tracking System
 

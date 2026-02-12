@@ -11,7 +11,7 @@
 
 ---
 
-## 📌 Genel Bakış
+## Genel Bakış
 
 SunflowerBot, Basys 3 geliştirme kartı üzerinde yer alan Artix-7 FPGA kullanılarak tasarlanmış, otonom ve heliotropik (güneşe yönelen) bir güneş takip sistemidir. Sistem, iki adet Işığa Bağımlı Direnç (LDR) aracılığıyla ortam ışığını algılayarak bir servo motoru en yüksek ışık yoğunluğuna doğru gerçek zamanlı olarak yönlendirir.
 
@@ -19,26 +19,26 @@ Mikrodenetleyici tabanlı çözümlerde görülen sıralı yazılım yürütmeni
 
 ---
 
-## 🛠️ Temel Tasarım Özellikleri
+## Temel Tasarım Özellikleri
 
-* **⚡ Donanım Hızlandırmalı Kontrol Döngüsü**  
+* **Donanım Hızlandırmalı Kontrol Döngüsü**  
   Sensör gürültüsünü bastırmak ve servo motorun gereksiz salınım yapmasını önlemek amacıyla 300 birimlik ölü banta sahip bir histerezis karşılaştırıcı uygulanmıştır.
 
-* **📈 Sinyal İşleme Hattı**  
+* **Sinyal İşleme Hattı**  
   Ham 12-bit XADC verilerini yumuşatmak için özel olarak tasarlanmış Birinci Dereceden IIR (Sonsuz Dürtü Tepkili) Alçak Geçiren Filtre kullanılmaktadır.
 
-* **🖥️ Bare-Metal LCD Sürücüsü**  
+* **Bare-Metal LCD Sürücüsü**  
   Harici IP çekirdekleri kullanılmadan, HD44780 LCD protokolü mikrosaniye hassasiyetinde zamanlama gereksinimlerini sağlayan bir Sonlu Durum Makinesi (FSM) ile doğrudan donanımda uygulanmıştır.
 
-* **🧈 Akıcı Hareket**  
+* **Akıcı Hareket**  
   İki nokta arasındaki hareketi daha akıcı hale getirmek amacıyla Slew-Rate (değişim hızı) sınırlamalı, 50 Hz PWM üreteci geliştirilmiştir.
 
-* **🔌 XADC Arayüzü**  
+* **XADC Arayüzü**  
   Artix-7 FPGA’nın dahili 12-bit XADC modülü, Dinamik Yeniden Yapılandırma Portu (DRP) üzerinden manuel olarak kontrol edilmiştir.
 
 ---
 
-## ⚙️ Sistem Mimarisi
+## Sistem Mimarisi
 
 ![Sistem_Blok_Diyagramı](https://github.com/user-attachments/assets/2a5c269f-cfff-4a3c-bdd9-182989aae2f3)  
 *Şekil 2. SunflowerBot'ın Blok Diyagramı*
@@ -70,9 +70,9 @@ Sistem, tamamen paralel çalışan bir “Algıla – Karar Ver – Eyleme Geç�
 
 ---
 
-## 💻 Teknik Uygulama Detayları
+## Teknik Uygulama Detayları
 
-### 1. Dijital Sinyal İşleme (DSP)
+### 1. Dijital Sinyal İşleme
 
 LDR tabanlı analog ölçümlerde karşılaşılan elektriksel gürültüyü harici filtre elemanları kullanmadan bastırmak amacıyla FPGA içinde Birinci Dereceden IIR filtre uygulanmıştır:
 
@@ -107,7 +107,7 @@ XADC’nin otomatik sıralayıcısı bypass edilerek, DRP üzerinden tamamen det
 
 ---
 
-## 🔌 Donanım Pin Bağlantıları (Basys 3)
+## Donanım Pin Bağlantıları (Basys 3)
 
 | Bileşen | Sinyal | FPGA Pini | Açıklama |
 |------|------|---------|---------|
@@ -126,6 +126,7 @@ XADC’nin otomatik sıralayıcısı bypass edilerek, DRP üzerinden tamamen det
 [▶️ Tam Tasarım Analizini YouTube’da İzleyin](https://youtu.be/HuF9bkv2JE8)
 
 ---
+
 
 
 

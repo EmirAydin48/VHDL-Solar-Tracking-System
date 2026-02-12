@@ -123,8 +123,9 @@ XADC’nin otomatik sıralayıcısı bypass edilerek, DRP üzerinden tamamen det
 
 ## 🎥 Gösterim
 
-[▶️ Tam Mühendislik Analizini YouTube’da İzleyin](https://youtu.be/HuF9bkv2JE8)
+[▶️ Tam Tasarım Analizini YouTube’da İzleyin](https://youtu.be/HuF9bkv2JE8)
 
 ---
+
 
 

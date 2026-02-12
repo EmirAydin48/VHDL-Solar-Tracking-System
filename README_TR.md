@@ -41,7 +41,7 @@ Mikrodenetleyici tabanlı çözümlerde görülen sıralı yazılım yürütmeni
 ## ⚙️ Sistem Mimarisi
 
 ![Sistem_Blok_Diyagramı](https://github.com/user-attachments/assets/2a5c269f-cfff-4a3c-bdd9-182989aae2f3)  
-*Şekil 2. SunflowerBot sistem mimarisi*
+*Şekil 2. SunflowerBot'ın Blok Diyagramı*
 
 Sistem, tamamen paralel çalışan bir “Algıla – Karar Ver – Eyleme Geç” yapısı üzerine kurulmuştur.
 
@@ -126,6 +126,7 @@ XADC’nin otomatik sıralayıcısı bypass edilerek, DRP üzerinden tamamen det
 [▶️ Tam Tasarım Analizini YouTube’da İzleyin](https://youtu.be/HuF9bkv2JE8)
 
 ---
+
 
 
 

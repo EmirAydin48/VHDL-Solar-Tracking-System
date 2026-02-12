@@ -12,7 +12,7 @@
 
 ---
 
-## 📌 Overview
+## Overview
 
 SunflowerBot is an autonomous, heliotropic tracking system designed on the Artix-7 FPGA (Basys 3). It mimics nature by using a pair of Light Dependent Resistors (LDRs) to actively orient a servo motor toward the brightest light source in real-time.
 
@@ -20,17 +20,17 @@ Unlike microcontroller-based solutions that rely on sequential software executio
 
 ---
 
-## 🛠️ Key Design Features
+## Key Design Features
 
-* **⚡ Hardware-Accelerated Control Loop** 
+* **Hardware-Accelerated Control Loop** 
     * Implements a Hysteresis Comparator with a 300-unit deadband to eliminate sensor noise and prevent servo "chattering" (rapid oscillation).
-* **📈 Signal Processing Pipeline**
+* **Signal Processing Pipeline**
     * Features a custom Infinite Impulse Response Low-Pass Filter to smooth raw 12-bit sensor data before actuation.
-* **🖥️ Bare-Metal LCD Driver** 
+* **Bare-Metal LCD Driver** 
     * A manual Finite State Machine implementation of the HD44780 protocol, managing microsecond-level timing constraints without external IP cores.
-* **🧈 Smooth Motion**
+* **Smooth Motion**
     * 50Hz PWM Generator with Slew-Rate Limiting to ensure smooth motion between two points by gradually accelerating the servo.
-* **🔌 XADC Interface**
+* **XADC Interface**
     * Direct control of the Artix-7 Dynamic Reconfiguration Port to sequence the internal 12-bit Analog-to-Digital Converter.
 
 ---
@@ -63,11 +63,11 @@ The architecture is a fully parallelized "Sense-Think-Act" pipeline:
 
 ---
 
-### 💻 Technical Implementation Details
+### Technical Implementation Details
 
 #### 1. Digital Signal Processing Implementation
 
-To filter electrical noise from the LDR voltage dividers without using external capacitors, our group have designed a First-Order IIR (Infinite Impulse Response) Filter directly in the FPGA fabric (`pwm_gen.vhd`).
+To filter electrical noise from the LDR voltage dividers without using external capacitors, our group has designed a First-Order IIR (Infinite Impulse Response) Filter directly in the FPGA fabric (`pwm_gen.vhd`).
 
 * **The Algorithm:** An **Exponential Moving Average** logic that acts as a digital low-pass filter.
   $$y[n] = \frac{31 \cdot y[n-1] + x[n]}{32}$$
@@ -75,20 +75,20 @@ To filter electrical noise from the LDR voltage dividers without using external 
 * **Noise Rejection:** A Hysteresis Comparator with a programmable dead-band (`THRESHOLD = 300`) prevents the servo from oscillating or "chattering" when the light differential is negligible.
 
 #### 2. Servo Control & Slew Rate Limiting
-Standard PWM drivers often snap servos to position instantly, causing high current spikes and gear wear. our group have implemented a custom "Soft-Start" Ramp Controller.
+Standard PWM drivers often snap servos to position instantly, causing high current spikes and gear wear. our group has implemented a custom "Soft-Start" Ramp Controller.
 
 * **Slew Rate Limiter:** A secondary counter (`ramp_timer`) slows down the position updates.
 * **Logic:** The `current_pos` only increments/decrements towards the `target_pos` once every 1,500 clock cycles ($15\mu s$), creating a smooth, organic velocity profile regardless of the step size.
 
 #### 3. Custom LCD Driver (HD44780)
-Our group have developed a bare-metal driver to interface with the 16x2 LCD, managing the strict microsecond-level timing requirements of the HD44780 controller without a CPU.
+Our group has developed a bare-metal driver to interface with the 16x2 LCD, managing the strict microsecond-level timing requirements of the HD44780 controller without a CPU.
 
  ![State_Transition_Table](https://github.com/user-attachments/assets/f2113290-5615-4d34-af94-b5d291377a13)
 *Figure 3. The State Transition Table of The LCD Driver*
 
 * **FSM Architecture:** A Mealy State Machine manages the initialization sequence (`0x38` Function Set $\to$ `0x0C` Display On $\to$ `0x01` Clear).
 * **Timing Compliance:** The FSM enforces a 50µs setup time (`WAIT_EN` state) and a 2ms command execution time (`DELAY_STATE`) to prevent display corruption.
-* **Data Conversion:** Instead of a memory-heavy lookup table, our group have implemented a real-time Binary-to-BCD-to-ASCII conversion algorithm (`val + 48`) to render 12-bit integer sensor values as human-readable text.
+* **Data Conversion:** Instead of a memory-heavy lookup table, our group has implemented a real-time Binary-to-BCD-to-ASCII conversion algorithm (`val + 48`) to render 12-bit integer sensor values as human-readable text.
 
 #### 4. XADC Interfacing
 The project bypasses the XADC's automatic sequencer to implement a deterministic Manual Sequencer via the Dynamic Reconfiguration Port (DRP).

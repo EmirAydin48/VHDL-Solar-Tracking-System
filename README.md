@@ -16,7 +16,7 @@ Available Languages: [English](README.md) | [Türkçe](README_TR.md)
 
 SunflowerBot is an autonomous, heliotropic tracking system designed on the Artix-7 FPGA (Basys 3). It mimics nature by using a pair of Light Dependent Resistors (LDRs) to actively orient a servo motor toward the brightest light source in real-time.
 
-Unlike microcontroller-based solutions that rely on sequential software execution, this project leverages FPGA parallelism to handle sensor acquisition, signal processing, and motor control simultaneously in hardware. The system features a custom RTL (Register Transfer Level) design that eliminates the need for a soft-core processor, ensuring deterministic, microsecond-level response times.
+Unlike microcontroller-based solutions that rely on sequential software execution, this project leverages FPGA parallelism to handle sensor acquisition, signal processing, and motor control simultaneously in hardware. The system features a custom RTL design that eliminates the need for a soft-core processor, ensuring microsecond-level response times.
 
 ---
 
@@ -24,14 +24,14 @@ Unlike microcontroller-based solutions that rely on sequential software executio
 
 * **⚡ Hardware-Accelerated Control Loop** 
     * Implements a Hysteresis Comparator with a 300-unit deadband to eliminate sensor noise and prevent servo "chattering" (rapid oscillation).
-* **📈 Signal Processing Pipeline (DSP)**
+* **📈 Signal Processing Pipeline**
     * Features a custom Infinite Impulse Response Low-Pass Filter to smooth raw 12-bit sensor data before actuation.
 * **🖥️ Bare-Metal LCD Driver** 
     * A manual Finite State Machine implementation of the HD44780 protocol, managing microsecond-level timing constraints without external IP cores.
-* **🎯 Precise Actuation**
-    * 50Hz PWM Generator with Slew-Rate Limiting to protect mechanical components from high-torque stress by gradually accelerating the servo.
+* **🧈 Smooth Motion**
+    * 50Hz PWM Generator with Slew-Rate Limiting to ensure smooth motion between two points by gradually accelerating the servo.
 * **🔌 XADC Interface**
-    * Direct control of the Artix-7 Dynamic Reconfiguration Port (DRP) to sequence the internal 12-bit Analog-to-Digital Converter.
+    * Direct control of the Artix-7 Dynamic Reconfiguration Port to sequence the internal 12-bit Analog-to-Digital Converter.
 
 ---
 
@@ -43,13 +43,13 @@ Unlike microcontroller-based solutions that rely on sequential software executio
 The architecture is a fully parallelized "Sense-Think-Act" pipeline:
 
 ### 1. Sensing (`xadc_interface.vhd`)
-* **Input:** 2x Light Dependent Resistors (LDRs) forming voltage dividers.
+* **Input:** 2x Light Dependent Resistors forming voltage dividers.
 * **Mechanism:** Interfaces with the XADC primitive to sample analog voltages at 12-bit resolution.
 * **Logic:** Uses a 4-state sequencer to multiplex the single ADC core between two analog channels (VAUX6 & VAUX14).
 
 ### 2. Processing (`sensor_compare.vhd` & `pwm_gen.vhd`)
 * **Comparison:** Calculates the differential ($\Delta$) between Left and Right sensors.
-* **Filtering:** Applies an IIR filter: $y[n] = 0.97 \cdot y[n-1] + 0.03 \cdot x[n]$. This dampens high-frequency noise (shadow flicker).
+* **Filtering:** Applies an IIR filter: $y[n] = 0.97 \cdot y[n-1] + 0.03 \cdot x[n]$. This dampens high-frequency noise.
 * **Decision:** Moves the servo only if $|\Delta| > \text{Threshold}$.
 
 ### 3. Actuation (`pwm_gen.vhd`)
@@ -65,11 +65,11 @@ The architecture is a fully parallelized "Sense-Think-Act" pipeline:
 
 ### 💻 Technical Implementation Details
 
-#### 1. Digital Signal Processing (DSP) Implementation
+#### 1. Digital Signal Processing Implementation
 
 To filter electrical noise from the LDR voltage dividers without using external capacitors, our group have designed a First-Order IIR (Infinite Impulse Response) Filter directly in the FPGA fabric (`pwm_gen.vhd`).
 
-* **The Algorithm:** An **Exponential Moving Average (EMA)** logic that acts as a digital low-pass filter.
+* **The Algorithm:** An **Exponential Moving Average** logic that acts as a digital low-pass filter.
   $$y[n] = \frac{31 \cdot y[n-1] + x[n]}{32}$$
 * **Hardware Optimization:** The division by 32 is implemented via bit-shifting (`>> 5`), which consumes zero DSP slices compared to standard division logic.
 * **Noise Rejection:** A Hysteresis Comparator with a programmable dead-band (`THRESHOLD = 300`) prevents the servo from oscillating or "chattering" when the light differential is negligible.

@@ -13,9 +13,9 @@
 
 ## Genel Bakış
 
-SunflowerBot, Basys 3 geliştirme kartı üzerinde yer alan Artix-7 FPGA kullanılarak tasarlanmış, otonom ve heliotropik (güneşe yönelen) bir güneş takip sistemidir. Sistem, iki adet Işığa Bağımlı Direnç (LDR) aracılığıyla ortam ışığını algılayarak bir servo motoru en yüksek ışık yoğunluğuna doğru gerçek zamanlı olarak yönlendirir.
+SunflowerBot, Basys 3 geliştirme kartı üzerinde yer alan Artix-7 FPGA kullanılarak tasarlanmış, otonom ve heliotropik bir ışık takip sistemidir. Sistem, iki adet ışığa bağımlı direnç aracılığıyla ortam ışığını algılayarak bir servo motoru en yüksek ışık yoğunluğuna doğru gerçek zamanlı olarak yönlendirir.
 
-Mikrodenetleyici tabanlı çözümlerde görülen sıralı yazılım yürütmenin aksine, bu proje sensör okuma, sinyal işleme ve motor kontrol işlemlerini tamamen donanım seviyesinde ve eşzamanlı olarak gerçekleştirmek üzere FPGA paralelliğinden yararlanmaktadır. Sistem, herhangi bir soft-core işlemciye ihtiyaç duymayan özel bir RTL (Register Transfer Level) mimarisi ile tasarlanmış olup, bu sayede mikrosaniye mertebesinde tepki süreleri elde edilmiştir.
+Mikrodenetleyici tabanlı çözümlerde görülen sıralı yazılım yürütmenin aksine, bu proje sensör okuma, sinyal işleme ve motor kontrol işlemlerini tamamen donanım seviyesinde ve eşzamanlı olarak gerçekleştirmek üzere FPGA paralelliğinden yararlanmaktadır. Sistem, herhangi bir soft-core işlemciye ihtiyaç duymayan özel bir RTL mimarisi ile tasarlanmış olup, bu sayede mikrosaniye mertebesinde tepki süreleri elde edilmiştir.
 
 ---
 

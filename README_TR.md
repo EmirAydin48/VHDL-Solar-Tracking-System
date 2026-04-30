@@ -13,7 +13,7 @@
 
 ## Genel Bakış
 
-SunflowerBot, Basys 3 geliştirme kartı üzerinde yer alan Artix-7 FPGA kullanılarak tasarlanmış, otonom ve heliotropik bir ışık takip sistemidir. Sistem, iki adet ışığa bağımlı direnç aracılığıyla ortam ışığını algılayarak bir servo motoru en yüksek ışık yoğunluğuna doğru gerçek zamanlı olarak yönlendirir.
+SunflowerBot, Basys 3 geliştirme kartı üzerinde yer alan Artix-7 Basys 3 FPGA kullanılarak tasarlanmış, otonom ve heliotropik bir ışık takip sistemidir. Sistem, iki adet ışığa bağımlı direnç aracılığıyla ortam ışığını algılayarak bir servo motoru en yüksek ışık yoğunluğuna doğru gerçek zamanlı olarak yönlendirir.
 
 Mikrodenetleyici tabanlı çözümlerde görülen sıralı yazılım yürütmenin aksine, bu proje sensör okuma, sinyal işleme ve motor kontrol işlemlerini tamamen donanım seviyesinde ve eşzamanlı olarak gerçekleştirmek üzere FPGA paralelliğinden yararlanmaktadır. Sistem, herhangi bir soft-core işlemciye ihtiyaç duymayan özel bir RTL mimarisi ile tasarlanmış olup, bu sayede mikrosaniye mertebesinde tepki süreleri elde edilmiştir.
 
@@ -25,16 +25,16 @@ Mikrodenetleyici tabanlı çözümlerde görülen sıralı yazılım yürütmeni
   Sensör gürültüsünü bastırmak ve servo motorun gereksiz salınım yapmasını önlemek amacıyla 300 birimlik ölü banta sahip bir histerezis karşılaştırıcı uygulanmıştır.
 
 * **Sinyal İşleme Hattı**  
-  Ham 12-bit XADC verilerini yumuşatmak için özel olarak tasarlanmış Birinci Dereceden IIR (Sonsuz Dürtü Tepkili) Alçak Geçiren Filtre kullanılmaktadır.
+  Ham 12-bit XADC verilerini yumuşatmak için özel olarak tasarlanmış Alçak Geçiren Filtre kullanılmaktadır.
 
 * **Bare-Metal LCD Sürücüsü**  
-  Harici IP çekirdekleri kullanılmadan, HD44780 LCD protokolü mikrosaniye hassasiyetinde zamanlama gereksinimlerini sağlayan bir Sonlu Durum Makinesi (FSM) ile doğrudan donanımda uygulanmıştır.
+  Harici IP çekirdekleri kullanılmadan, HD44780 LCD protokolü mikrosaniye hassasiyetinde zamanlama gereksinimlerini sağlayan bir Sonlu Durum Makinesi ile doğrudan donanımda uygulanmıştır.
 
 * **Akıcı Hareket**  
-  İki nokta arasındaki hareketi daha akıcı hale getirmek amacıyla Slew-Rate (değişim hızı) sınırlamalı, 50 Hz PWM üreteci geliştirilmiştir.
+  İki nokta arasındaki hareketi daha akıcı hale getirmek amacıyla değişim hızı sınırlamalı, 50 Hz PWM üreteci geliştirilmiştir.
 
 * **XADC Arayüzü**  
-  Artix-7 FPGA’nın dahili 12-bit XADC modülü, Dinamik Yeniden Yapılandırma Portu (DRP) üzerinden manuel olarak kontrol edilmiştir.
+  Artix-7 FPGA’nın dahili 12-bit XADC modülü, Dinamik Yeniden Yapılandırma Portu üzerinden manuel olarak kontrol edilmiştir.
 
 ---
 
@@ -83,7 +83,7 @@ $$y[n] = \frac{31 \cdot y[n-1] + x[n]}{32}$$
 
 ### 2. Servo Kontrolü ve Slew-Rate Sınırlama
 
-Ani konum değişimlerinin neden olduğu mekanik stresleri azaltmak için özel bir Soft-Start (Yumuşak Başlangıç) rampa denetleyicisi geliştirilmiştir.
+Ani konum değişimlerinin neden olduğu mekanik stresleri azaltmak için özel bir yumuşak başlangıç rampa denetleyicisi geliştirilmiştir.
 
 * `current_pos`, `target_pos` değerine doğru her 15 µs'de yalnızca bir adım ilerler.  
 * Bu yapı, pürüzsüz ve mekanik açıdan güvenli bir hareket profili sağlar.

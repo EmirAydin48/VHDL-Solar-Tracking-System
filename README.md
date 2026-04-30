@@ -14,7 +14,7 @@
 
 ## Overview
 
-SunflowerBot is an autonomous, heliotropic tracking system designed on the Artix-7 FPGA (Basys 3). It mimics nature by using a pair of Light Dependent Resistors (LDRs) to actively orient a servo motor toward the brightest light source in real-time.
+SunflowerBot is an autonomous, heliotropic tracking system designed on the Artix-7 Basys 3 FPGA board. It mimics nature by using a pair of Light Dependent Resistors to actively orient a servo motor toward the brightest light source in real-time.
 
 Unlike microcontroller-based solutions that rely on sequential software execution, this project leverages FPGA parallelism to handle sensor acquisition, signal processing, and motor control simultaneously in hardware. The system features a custom RTL design that eliminates the need for a soft-core processor, ensuring microsecond-level response times.
 
@@ -23,9 +23,9 @@ Unlike microcontroller-based solutions that rely on sequential software executio
 ## Key Design Features
 
 * **Hardware-Accelerated Control Loop** 
-    * Implements a Hysteresis Comparator with a 300-unit deadband to eliminate sensor noise and prevent servo "chattering" (rapid oscillation).
+    * Implements a Hysteresis Comparator with a 300-unit deadband to eliminate sensor noise and prevent servo "chattering".
 * **Signal Processing Pipeline**
-    * Features a custom Infinite Impulse Response Low-Pass Filter to smooth raw 12-bit sensor data before actuation.
+    * Features a custom Low-Pass Filter to smooth raw 12-bit sensor data before actuation.
 * **Bare-Metal LCD Driver** 
     * A manual Finite State Machine implementation of the HD44780 protocol, managing microsecond-level timing constraints without external IP cores.
 * **Smooth Motion**
@@ -45,7 +45,7 @@ The architecture is a fully parallelized "Sense-Think-Act" pipeline:
 ### 1. Sensing (`xadc_interface.vhd`)
 * **Input:** 2x Light Dependent Resistors forming voltage dividers.
 * **Mechanism:** Interfaces with the XADC primitive to sample analog voltages at 12-bit resolution.
-* **Logic:** Uses a 4-state sequencer to multiplex the single ADC core between two analog channels (VAUX6 & VAUX14).
+* **Logic:** Uses a 4-state sequencer to multiplex the single ADC core between two analog channels.
 
 ### 2. Processing (`sensor_compare.vhd` & `pwm_gen.vhd`)
 * **Comparison:** Calculates the differential ($\Delta$) between Left and Right sensors.
@@ -53,12 +53,12 @@ The architecture is a fully parallelized "Sense-Think-Act" pipeline:
 * **Decision:** Moves the servo only if $|\Delta| > \text{Threshold}$.
 
 ### 3. Actuation (`pwm_gen.vhd`)
-* **Output:** 50Hz PWM Signal (20ms Period).
-* **Resolution:** 1µs tick precision (20,000 steps per cycle).
+* **Output:** 50Hz PWM Signal *(20ms Period)*.
+* **Resolution:** 1µs tick precision *(20,000 steps per cycle)*.
 * **Range:** Maps sensor difference to a pulse width between 0.5ms ($0^\circ$) and 2.5ms ($180^\circ$).
 
 ### 4. Feedback (`lcd_controller.vhd`)
-* **Visuals:** Displays real-time status ("TURN LEFT", "LOCKED") and raw 12-bit sensor values.
+* **Visuals:** Displays real-time status like "TURN LEFT", "LOCKED" and raw 12-bit sensor values.
 * **Conversion:** Includes a binary-to-BCD-to-ASCII converter for human-readable output.
 
 ---
@@ -67,12 +67,12 @@ The architecture is a fully parallelized "Sense-Think-Act" pipeline:
 
 #### 1. Digital Signal Processing Implementation
 
-To filter electrical noise from the LDR voltage dividers without using external capacitors, our group has designed a First-Order IIR (Infinite Impulse Response) Filter directly in the FPGA fabric (`pwm_gen.vhd`).
+To filter electrical noise from the LDR voltage dividers without using external capacitors, our group has designed a Low-Pass Filter directly in the FPGA fabric (`pwm_gen.vhd`).
 
 * **The Algorithm:** An **Exponential Moving Average** logic that acts as a digital low-pass filter.
   $$y[n] = \frac{31 \cdot y[n-1] + x[n]}{32}$$
 * **Hardware Optimization:** The division by 32 is implemented via bit-shifting (`>> 5`), which consumes zero DSP slices compared to standard division logic.
-* **Noise Rejection:** A Hysteresis Comparator with a programmable dead-band (`THRESHOLD = 300`) prevents the servo from oscillating or "chattering" when the light differential is negligible.
+* **Noise Rejection:** A Hysteresis Comparator with a programmable dead-band *(`THRESHOLD = 300`) prevents the servo from oscillating or "chattering" when the light differential is negligible.
 
 #### 2. Servo Control & Slew Rate Limiting
 Standard PWM drivers often snap servos to position instantly, causing high current spikes and gear wear. our group has implemented a custom "Soft-Start" Ramp Controller.
@@ -93,7 +93,7 @@ Our group has developed a bare-metal driver to interface with the 16x2 LCD, mana
 #### 4. XADC Interfacing
 The project bypasses the XADC's automatic sequencer to implement a deterministic Manual Sequencer via the Dynamic Reconfiguration Port (DRP).
 
-* **Channel Multiplexing:** The FSM explicitly switches addresses between `0x16` (Aux6) and `0x1E` (Aux14), waiting for the `EOC` (End of Conversion) signal before latching data.
+* **Channel Multiplexing:** The FSM explicitly switches addresses between `0x16` (Aux6) and `0x1E` (Aux14), waiting for the `EOC` signal before latching data.
 * **Resolution:** Captures full 12-bit precision (0-4095 range) mapped to the 0V-1V analog input range of the Artix-7.
 
 ---

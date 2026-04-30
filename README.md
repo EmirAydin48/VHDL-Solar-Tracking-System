@@ -23,7 +23,7 @@ Unlike microcontroller-based solutions that rely on sequential software executio
 ## Key Design Features
 
 * **Hardware-Accelerated Control Loop** 
-    * Implements a Hysteresis Comparator with a 300-unit deadband to eliminate sensor noise and prevent servo "chattering".
+    * Implements a thresholdth comparator with a 300-unit deadband to reduce sensor noise and prevent servo "chattering".
 * **Signal Processing Pipeline**
     * Features a custom Low-Pass Filter to smooth raw 12-bit sensor data before actuation.
 * **Bare-Metal LCD Driver** 

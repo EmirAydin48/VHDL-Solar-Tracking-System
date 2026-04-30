@@ -74,7 +74,7 @@ Sistem, tamamen paralel çalışan bir “Algıla – Karar Ver – Eyleme Geç�
 
 ### 1. Dijital Sinyal İşleme
 
-LDR tabanlı analog ölçümlerde karşılaşılan elektriksel gürültüyü harici filtre elemanları kullanmadan bastırmak amacıyla FPGA içinde Birinci Dereceden IIR filtre uygulanmıştır:
+LDR tabanlı analog ölçümlerde karşılaşılan elektriksel gürültüyü harici filtre elemanları kullanmadan bastırmak amacıyla FPGA içinde bir filtre uygulanmıştır:
 
 $$y[n] = \frac{31 \cdot y[n-1] + x[n]}{32}$$
 

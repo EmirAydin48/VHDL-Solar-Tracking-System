@@ -22,7 +22,7 @@ Mikrodenetleyici tabanlı çözümlerde görülen sıralı yazılım yürütmeni
 ## Temel Tasarım Özellikleri
 
 * **Donanım Hızlandırmalı Kontrol Döngüsü**  
-  Sensör gürültüsünü bastırmak ve servo motorun gereksiz salınım yapmasını önlemek amacıyla 300 birimlik ölü banta sahip bir histerezis karşılaştırıcı uygulanmıştır.
+  Sensör gürültüsünü bastırmak ve servo motorun gereksiz salınım yapmasını azaltmak amacıyla 300 birimlik ölü banta sahip bir karşılaştırıcı eklenmiştir.
 
 * **Sinyal İşleme Hattı**  
   Ham 12-bit XADC verilerini yumuşatmak için özel olarak tasarlanmış Alçak Geçiren Filtre kullanılmaktadır.
